@@ -1,0 +1,4 @@
+rootProject.name = 'jfxanimation-root'
+include 'jfxanimation'
+include 'demo'
+

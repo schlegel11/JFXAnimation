@@ -1,0 +1,14 @@
+subprojects {
+    apply plugin: 'java'
+    apply from: "$rootProject.projectDir/gitCommands.gradle"
+
+    version '1.0.0'
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}

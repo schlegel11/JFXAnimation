@@ -1,0 +1,14 @@
+plugins {
+    id 'application'
+}
+
+mainClassName = 'demo.AnimationDemo'
+
+task animationDemo{
+    dependsOn run
+}
+
+dependencies {
+    compile project(':jfxanimation')
+    compile JavaVersion.current().isJava9Compatible() ? 'com.jfoenix:jfoenix:9.0.6' : 'com.jfoenix:jfoenix:8.0.7'
+}

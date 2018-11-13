@@ -1,0 +1,171 @@
+plugins {
+    id "com.jfrog.bintray" version "1.8.4"
+    id 'ru.vyarus.pom' version '1.3.0'
+    id "maven-publish"
+}
+
+group 'de.schlegel11'
+description 'CSS keyframe animation for JavaFX'
+
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compileClasspath
+
+    options
+            {
+                setMemberLevel JavadocMemberLevel.PUBLIC
+                setAuthor true
+                links "https://docs.oracle.com/javase/8/docs/api/"
+            }
+}
+
+task sourceJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
+
+artifacts {
+    archives sourceJar
+    archives javadocJar
+}
+
+task releaseFXCSS(type: GradleBuild) {
+    tasks = ['bintrayUpload',
+             'commitDocs',
+             'createReleaseTag']
+}
+
+task commitDocs {
+    def javadocDir = "${project.docsDir}/javadoc"
+    def gitDestDir = "${project.rootDir}/releases/${project.version}/api/docs"
+    def branch = 'gh-pages'
+    def commitMessage = "Gradle auto commit for docs ${project.version}"
+    git.processDir = project.rootDir
+
+    doFirst {
+        project.tasks.create('annonymCopyTask', Copy) {
+            from javadocDir
+            into gitDestDir
+        }
+    }
+    doLast {
+        if (git.hasFilesUpToDate('.')) {
+            git.switchCreateEmptyBranch(branch) {
+                annonymCopyTask.execute()
+                if (annonymCopyTask.state.skipped && !annonymCopyTask.state.upToDate) {
+                    throw new GradleException("Copy doc files -> FAIL: ${annonymCopyTask.state.skipMessage ?: ''}")
+                }
+                println "Copy doc files -> OK: ${annonymCopyTask.state.skipMessage ?: ''}"
+
+                if (!git.hasFilesUpToDate(gitDestDir)) {
+                    println("Add/Update files to ${branch}")
+                    println("Modified files are:\n ${git.getModifiedFiles(gitDestDir)}")
+                    git.add(gitDestDir)
+
+                    println('Commit changes')
+                    git.commit(commitMessage)
+                    println "Commit doc files to ${branch} -> OK"
+                } else {
+                    println "Commit doc files to ${branch} -> OK: UP-TO-DATE"
+                }
+            }
+        } else {
+            throw new GradleException("Commit doc files -> FAIL: Please commit your changes firstly.")
+        }
+    }
+}
+
+task createReleaseTag {
+    def branch = 'master'
+    def tag = "v${version}"
+
+    onlyIf { !git.hasTag(tag) }
+    doLast {
+        if (git.hasFilesUpToDate('.')) {
+            git.switchCreateBranch(branch) {
+                git.createTag(tag, 'auto created tag')
+            }
+        } else {
+            throw new GradleException("Create release tag -> FAIL: Please commit your changes firstly.")
+        }
+    }
+}
+
+pom {
+    packaging 'jar'
+    url 'http://jfxanimation.schlegel11.de'
+
+    scm {
+        connection 'scm:git://github.com/schlegel11/JFXAnimation.git'
+        developerConnection 'scm:git:git@github.com:schlegel11/JFXAnimation.git'
+        url 'https://github.com/schlegel11/JFXAnimation'
+    }
+    issueManagement {
+        system 'GitHub Issues'
+        url 'https://github.com/schlegel11/JFXAnimation/issues'
+    }
+    licenses {
+        license {
+            name 'The MIT License (MIT)'
+            url 'http://opensource.org/licenses/MIT'
+            distribution 'repo'
+        }
+    }
+    developers {
+        developer {
+            id 'schlegel11'
+            name 'Marcel Schlegel'
+            email 'develop@schlegel11.de'
+            url 'http://schlegel11.de'
+        }
+    }
+}
+
+publishing.publications {
+    mavenJava(MavenPublication) {
+        from components.java
+
+        artifact(sourceJar) {
+            classifier = 'sources'
+        }
+        artifact(javadocJar) {
+            classifier = 'javadoc'
+        }
+
+        jar {
+            into("META-INF/maven/$project.group/$project.name") {
+                from { generatePomFileForMavenJavaPublication }
+                rename ".*", "pom.xml"
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getProperty('bintray.user')
+    key = System.getProperty('bintray.key')
+    publications = ['mavenJava']
+
+    pkg {
+        repo = 'JavaFX'
+        name = project.name
+        desc = project.description
+        labels = [
+                'css',
+                'javafx',
+                'animation',
+                'keyframe-animation']
+        publicDownloadNumbers = true
+        vcsUrl = 'https://github.com/schlegel11/JFXAnimation.git'
+        version {
+            name = '1.0.0'
+            desc = '1.0.0'
+            released = new Date()
+        }
+    }
+}

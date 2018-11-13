@@ -1,0 +1,112 @@
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+/**
+ * Provide git commands which can be used in gradle tasks.
+ * @author Marcel Schlegel (schlegel11)
+ */
+ext.git = [
+
+        checkoutBranch             : { branch ->
+            gitCommand("checkout", branch)
+        },
+
+        createBranch               : { branch ->
+            gitCommand("checkout", "-b", branch)
+        },
+
+        createEmptyBranch          : { branch ->
+            gitCommand("checkout", "--orphan", branch)
+            gitCommand("rm", "-rf", '.')
+        },
+
+        switchCreateBranch         : { branch, closure = {} ->
+            def lastBranch = git.getCurrentBranch()
+            git.createOrCheckoutBranch(branch)
+            def returnValue = closure(lastBranch)
+            git.checkoutBranch(lastBranch)
+            returnValue
+        },
+
+        switchCreateEmptyBranch    : { branch, closure = {} ->
+            def lastBranch = git.getCurrentBranch()
+            git.createEmptyOrCheckoutBranch(branch)
+            def returnValue = closure(lastBranch)
+            git.checkoutBranch(lastBranch)
+            returnValue
+        },
+
+        createOrCheckoutBranch     : { branch ->
+            git.hasBranch(branch) ? git.checkoutBranch(branch) : git.createBranch(branch)
+        },
+
+        createEmptyOrCheckoutBranch: { branch ->
+            git.hasBranch(branch) ? git.checkoutBranch(branch) : git.createEmptyBranch(branch)
+        },
+
+        add                        : { ... files ->
+            gitCommand("add", files.join(','))
+        },
+
+        commit                     : { message ->
+            gitCommand("commit", "-m", message)
+        },
+
+        getCurrentBranch           : { ->
+            gitCommand("branch").find('(?<=[*]{1}).*').trim()
+        },
+
+        hasBranch                  : { branch ->
+            def result = gitCommand("branch")
+            Pattern p = Pattern.compile("(${branch}\\b)")
+            Matcher m = p.matcher(result)
+            m.find()
+        },
+
+        hasFiles                   : { ... files ->
+            try {
+                gitCommand("ls-files", "--error-unmatch", files.join(','))
+            } catch (ignored) {
+                return false
+            }
+            return true
+        },
+
+        getModifiedFiles           : { ... paths ->
+            gitCommand("ls-files", "--modified", paths.join(','))
+        },
+
+        hasFilesUpToDate           : { ... files ->
+            git.hasFiles(files) && git.getModifiedFiles(files).isEmpty()
+        },
+
+        createTag                  : { name, message ->
+            gitCommand('tag', '-a', name, '-m', message)
+        },
+
+        hasTag                     : { tag ->
+            def result = gitCommand("tag")
+            Pattern p = Pattern.compile("(${tag}\\b)")
+            Matcher m = p.matcher(result)
+            m.find()
+        }
+]
+
+private String gitCommand(String... commands) {
+    runCommands(git.processDir, (['git'] + commands).flatten() as String[])
+}
+
+/**
+ * Credits to Oleksandr Bondarchuk
+ */
+private static String runCommands(File processDir, String... commands) {
+    def process = new ProcessBuilder(commands).directory(processDir).redirectErrorStream(true).start()
+    process.waitFor()
+    def result = ''
+    process.inputStream.eachLine { result += it + '\n' }
+    def errorResult = process.exitValue() == 0
+    if (!errorResult) {
+        throw new IllegalStateException(result)
+    }
+    return result
+}
