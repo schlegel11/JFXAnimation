@@ -1,0 +1,21 @@
+# language setting
+language: java
+
+# build systems
+os:
+  - linux
+
+# jdk tag
+jdk:
+ - oraclejdk8
+
+# include
+branches:
+  only:
+    - master
+
+# notify
+notifications:
+     email:
+         recipients:
+             - develop@schlegel11.de
