@@ -550,7 +550,7 @@ It can explicitly set at build time like:
  
 If you are using JFoenix, you don't have to use this dependency (it's already included in JFoenix).<br>
 If you use this dependency and switch later to JFoenix you can remove this dependency.<br>
-Furthermore, you have to change the package names from *de.schlegel11.jfxanimation.** to *com.jfoenix.transitions.template.**.
+Furthermore, you have to change the package names from *de.schlegel11.jfxanimation.** to *com.jfoenix.transitions.template.**
  
  #### Gradle
  
@@ -565,6 +565,5 @@ Furthermore, you have to change the package names from *de.schlegel11.jfxanimati
   <groupId>de.schlegel11</groupId>
   <artifactId>jfxanimation</artifactId>
   <version>1.0.0</version>
-  <type>pom</type>
 </dependency>
  ```
