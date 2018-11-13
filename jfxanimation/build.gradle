@@ -156,6 +156,7 @@ bintray {
         repo = 'JavaFX'
         name = project.name
         desc = project.description
+        licenses = ['MIT']
         labels = [
                 'css',
                 'javafx',
@@ -163,6 +164,8 @@ bintray {
                 'keyframe-animation']
         publicDownloadNumbers = true
         vcsUrl = 'https://github.com/schlegel11/JFXAnimation.git'
+        websiteUrl = 'http://jfxanimation.schlegel11.de'
+        issueTrackerUrl = 'https://github.com/schlegel11/JFXAnimation/issues'
         version {
             name = '1.0.0'
             desc = '1.0.0'
