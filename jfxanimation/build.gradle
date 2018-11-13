@@ -83,6 +83,7 @@ task commitDocs {
 task createReleaseTag {
     def branch = 'master'
     def tag = "v${version}"
+    git.processDir = project.rootDir
 
     onlyIf { !git.hasTag(tag) }
     doLast {
