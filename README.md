@@ -544,17 +544,27 @@ It can explicitly set at build time like:
  ./gradlew demo:animationDemo
  ```
  
- <img src="https://raw.githubusercontent.com/schlegel11/JFXAnimation/assets/jfx_animation_demo.gif" width="40%">
+ ![Alt text](https://raw.githubusercontent.com/schlegel11/JFXAnimation/assets/jfx_animation_demo.gif "Animation Demo")
  
  ## Download
  
- A ready to use jar can be downloaded here:<br>
- ...
+If you are using JFoenix, you don't have to use this dependency (it's already included in JFoenix).<br>
+If you use this dependency and switch later to JFoenix you can remove this dependency.<br>
+Furthermore, you have to change the package names from *de.schlegel11.jfxanimation.** to *com.jfoenix.transitions.template.**.
  
  #### Gradle
  
- ...
+ ```groovy
+ compile 'de.schlegel11:jfxanimation:1.0.0'
+ ```
  
  #### Maven
  
- ...
+ ```xml
+<dependency>
+  <groupId>de.schlegel11</groupId>
+  <artifactId>jfxanimation</artifactId>
+  <version>1.0.0</version>
+  <type>pom</type>
+</dependency>
+ ```
