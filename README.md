@@ -1,6 +1,7 @@
 # JFXAnimation
 
-CSS keyframe animation for JavaFX.  
+CSS keyframe animation for JavaFX.<br>
+If you are using [JFoenix](https://github.com/jfoenixadmin/JFoenix) JFXAnimation is included *(currently not in release versions)*
 
 ## Requirements
 
@@ -8,21 +9,20 @@ CSS keyframe animation for JavaFX.
 
 ## Documentation
 
-##### Version 1.0 (Latest)
+##### Version 1.0.0 (Latest)
 
 For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/1.0.0/api/docs/)
 
 ## Details
 
-#### JFXAnimation (also included in JFoenix)
+#### JFXAnimation
 
-
-The JFXAnimation project provides the JFXAnimationTemplate classes which acts as a builder for JavaFX animations.  
-The building structure of a JFXAnimationTemplate is based on CSS keyframe animations which have some advantages:
+The JFXAnimation project provides the JFXAnimationTemplate classes, which acts as a builder for JavaFX animations.  
+The building structure of a JFXAnimationTemplate is based on CSS keyframe animations, which have some advantages:
 
 ##### Features 
 
-- Define the animation in a relative way based on different percentage values related to a total animation duration
+- Define the animation in a relative way, based on different percentage values, related to a total animation duration
 
 - Multiple target observers per action
 
@@ -35,8 +35,6 @@ The building structure of a JFXAnimationTemplate is based on CSS keyframe animat
 - Transfer your current CSS animations easily to JavaFX
 
 - Create animations simply for multiple animation objects
-
-<br>
 
 ##### Code comparison:  
 
@@ -56,7 +54,7 @@ CSS [TADA](https://github.com/daneden/animate.css/blob/master/source/attention_s
 </td>
 <td align="left">
 
-Implementation with [JFXAnimationTemplate](kk)
+Implementation with [JFXAnimationTemplate](https://schlegel11.github.io/JFXAnimation/releases/1.0.0/api/docs/de/schlegel11/jfxanimation/JFXAnimationTemplate.html)
 </td>
 <td align="left">
 
@@ -180,17 +178,17 @@ TimelineBuilder.create()
   
 <br>
 
-As you can see the default approach with KeyFrame objects has more lines of code. <br>
-Furthermore there is a repetitive number of KeyFrames (each for a specific section) which causes a lot of duplicated KeyValue objects.
-
-The JFXAnimationTemplate approach can handel one specified KeyFrame (action) on more sections due to different percentage values.
-Moreover you can specify more target observers for one specific end value.     
+As you can see, the default approach with KeyFrame objects has more lines of code.<br>
+Furthermore, there is a repetitive number of KeyFrames (each for a specific animation section) which causes a lot of duplicated KeyValue objects.<br>
+<br>
+The JFXAnimationTemplate approach can handel one specified KeyFrame (action) on more animation sections due to different percentage values.<br>
+Moreover, you can specify more target observers for one specific end value.     
 
 #### How To
 
 ##### Create a JFXAnimationTemplate
 
-The created type of JFXTemplate is use case specific. Mostly the JFXTemplateBuilder<T> is used as final type where T is the default animation object type.
+The created type of JFXTemplate is use case specific. Mostly the JFXTemplateBuilder<T> is used as final type, where T is the default animation object type.<br>
 A JFXTemplate can be created like that:
 
 ```java
@@ -243,7 +241,7 @@ which is the percentage value. Furthermore you can specify multiple percentage v
 ...
 ```
 
-or via varargs
+or via varargs:
 
 ```java
 ...
@@ -252,7 +250,7 @@ or via varargs
 ...
 ```
 
-Now you have to implement the specfifc action or actions like:
+Now you have to implement the specific action or actions like:
 
 ```java
 ...
@@ -272,7 +270,7 @@ If you use the non lazy method you have to create a JFXAnimationTemplateAction.B
 ...
 ```
 
-the more comfortable possibility is to use the lazy approach where such a builder is ready to use like:
+The more comfortable possibility is to use the lazy approach where such a builder is ready to use like:
 
 ```java
 ...
@@ -292,7 +290,7 @@ The next step is to define the specific animation values like:
 ...
 ```
 
-For example you can use multiple target properties via varargs like:
+For example you can use multiple target properties via varargs:
 
 ```java
 ...
@@ -302,8 +300,7 @@ For example you can use multiple target properties via varargs like:
 ...
 ```
 
-There are a lot more functions and also lazy method representations which also provides access to the actual animation object (like the target method in this example).
-For more see the JFXAnimationTemplateAction class.
+There are a lot more functions and also lazy method representations, which also provides access to the actual animation object (like the target method in this example).
 <br>
 <br>
 
@@ -328,8 +325,8 @@ Lets assume we have our animation action defined like this:
 ...
 ```
 
-We can finalize the animation by calling the config(...) method after the last action(...) method. <br>
-Again there are the same possibilities as for the JFXAnimationTemplateAction.Builder<?, ?>. <br>
+We can finalize the animation by calling the config(...) method after the last action(...) method.<br>
+Again there are the same possibilities as for the JFXAnimationTemplateAction.Builder<?, ?>.<br>
 So we can use the non lazy version and create a JFXAnimationTemplateConfig.Builder manually like:
 
 ```java
@@ -377,8 +374,8 @@ Now we have to define some config values like:
 ...
 ```
 
-We have to define the total duration of the animation and we can also define a interpolator which is used by all actions. <br>
-There are a lot more functions and also lazy method representations. <br>
+We have to define the total duration of the animation and we can also define a interpolator which is used by all actions.<br>
+There are a lot more functions and also lazy method representations.<br>
 For more see the JFXAnimationTemplateConfig class.
 <br>
 <br>
@@ -420,7 +417,7 @@ For more see the JFXAnimationTemplateConfig class.
   ...
   ```
 So the button is the default animation object and needs to be passed to the build(...) method.<br>
-The default return value is the ready to use Timeline.<r>
+The default return value is the ready to use Timeline.<br>
 There is also the possibility to use multiple default animation objects and also named animation objects.<br>
 For this purpose we have to use again a Builder in our build(...) method.
 And again we can do it in a non lazy:
@@ -475,7 +472,7 @@ So to use multiple default animation objects via varargs we have to do the follo
  ...
  ``` 
 Here we are using a named animation object "SpecialNode".<br>
-So this animation object will be used in exactly this action method. <br>
+So this animation object will be used in exactly this action method.<br>
 There is also the possibility to define another type for the named animation object like:
 
   ```java
@@ -531,16 +528,23 @@ It can explicitly set at build time like:
   ...
   ```       
   
- Where buildTimeline is just a method which accepts a type of JFXAnimationTemplate which contains all animation values and configs.<br>
- To use another animation container except Timeline, just write your own implementation which handles the JFXAnimationTemplate instance.<br>
+ Where buildTimeline is just a method which accepts a type of JFXAnimationTemplate, which contains all animation values and configs.<br>
+ To use another animation container except Timeline, just write your own implementation, which handles the JFXAnimationTemplate instance.<br>
  For orientation the implementation of buildTimeline in JFXAnimationTemplates class can be used and copied.
  
  ## Demo
  
- A full blown example of animations can be found in the demo package.<br>
- The demo uses JFoenix and is also included in the JFoenix demo package it also requires java 8 or 9.
+ A full blown example of animations can be found in the demo project/package.<br>
+ The demo uses JFoenix and is also included in the JFoenix demo package.<br>
+ It also requires java 8 or 9.
  
- To run the demo use the animationDemo task
+ Run the demo with:
+ 
+ ```shell
+ ./gradlew demo:animationDemo
+ ```
+ 
+ <img src="https://raw.githubusercontent.com/schlegel11/JFXAnimation/assets/jfx_animation_demo.gif" width="40%">
  
  ## Download
  
