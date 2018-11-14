@@ -1,5 +1,9 @@
 # JFXAnimation
 
+[ ![Download](https://api.bintray.com/packages/schlegel11/JavaFX/jfxanimation/images/download.svg) ](https://bintray.com/schlegel11/JavaFX/jfxanimation/_latestVersion)
+[![Build Status](https://travis-ci.org/schlegel11/JFXAnimation.svg?branch=master)](https://travis-ci.org/schlegel11/JFXAnimation)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/64afe731cf254cf5b36f725a125f0c5e)](https://www.codacy.com/app/marcel_4/JFXAnimation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=schlegel11/JFXAnimation&amp;utm_campaign=Badge_Grade)
+
 CSS keyframe animation for JavaFX.<br>
 If you are using [JFoenix](https://github.com/jfoenixadmin/JFoenix) JFXAnimation is included *(currently not in release versions)*
 
@@ -15,12 +19,10 @@ For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/1.
 
 ## Details
 
-#### JFXAnimation
-
 The JFXAnimation project provides the JFXAnimationTemplate classes, which acts as a builder for JavaFX animations.  
 The building structure of a JFXAnimationTemplate is based on CSS keyframe animations, which have some advantages:
 
-##### Features 
+#### Features 
 
 - Define the animation in a relative way, based on different percentage values, related to a total animation duration
 
@@ -36,7 +38,7 @@ The building structure of a JFXAnimationTemplate is based on CSS keyframe animat
 
 - Create animations simply for multiple animation objects
 
-##### Code comparison:  
+#### Code comparison:  
 
 <br>
 
