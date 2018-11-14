@@ -1,7 +1,8 @@
 # JFXAnimation
 
-[ ![Download](https://api.bintray.com/packages/schlegel11/JavaFX/jfxanimation/images/download.svg) ](https://bintray.com/schlegel11/JavaFX/jfxanimation/_latestVersion)
 [![Build Status](https://travis-ci.org/schlegel11/JFXAnimation.svg?branch=master)](https://travis-ci.org/schlegel11/JFXAnimation)
+[![Download](https://api.bintray.com/packages/schlegel11/JavaFX/jfxanimation/images/download.svg) ](https://bintray.com/schlegel11/JavaFX/jfxanimation/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/de.schlegel11/jfxanimation.svg)](https://search.maven.org/search?q=a:jfxanimation)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/64afe731cf254cf5b36f725a125f0c5e)](https://www.codacy.com/app/marcel_4/JFXAnimation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=schlegel11/JFXAnimation&amp;utm_campaign=Badge_Grade)
 
 CSS keyframe animation for JavaFX.<br>
@@ -9,11 +10,11 @@ If you are using [JFoenix](https://github.com/jfoenixadmin/JFoenix) JFXAnimation
 
 ## Requirements
 
-- JDK 8 and up
+-  JDK 8 and up
 
 ## Documentation
 
-##### Version 1.0.0 (Latest)
+### Version 1.0.0 (Latest)
 
 For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/1.0.0/api/docs/)
 
@@ -22,23 +23,17 @@ For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/1.
 The JFXAnimation project provides the JFXAnimationTemplate classes, which acts as a builder for JavaFX animations.  
 The building structure of a JFXAnimationTemplate is based on CSS keyframe animations, which have some advantages:
 
-#### Features 
+### Features 
 
-- Define the animation in a relative way, based on different percentage values, related to a total animation duration
+-  Define the animation in a relative way, based on different percentage values, related to a total animation duration
+-  Multiple target observers per action
+-  Define the animation in a complete lazy evaluated way
+-  Finish events for every step/action
+-  Specific or global interpolator for all animation actions
+-  Transfer your current CSS animations easily to JavaFX
+-  Create animations simply for multiple animation objects
 
-- Multiple target observers per action
-
-- Define the animation in a complete lazy evaluated way
-
-- Finish events for every step/action
-
-- Specific or global interpolator for all animation actions
-
-- Transfer your current CSS animations easily to JavaFX
-
-- Create animations simply for multiple animation objects
-
-#### Code comparison:  
+### Code comparison
 
 <br>
 
@@ -186,9 +181,9 @@ Furthermore, there is a repetitive number of KeyFrames (each for a specific anim
 The JFXAnimationTemplate approach can handel one specified KeyFrame (action) on more animation sections due to different percentage values.<br>
 Moreover, you can specify more target observers for one specific end value.     
 
-#### How To
+### How To
 
-##### Create a JFXAnimationTemplate
+#### Create a JFXAnimationTemplate
 
 The created type of JFXTemplate is use case specific. Mostly the JFXTemplateBuilder<T> is used as final type, where T is the default animation object type.<br>
 A JFXTemplate can be created like that:
@@ -306,10 +301,9 @@ There are a lot more functions and also lazy method representations, which also 
 <br>
 <br>
 
-##### Configure a JFXAnimationTemplate
+#### Configure a JFXAnimationTemplate
 
 Lets assume we have our animation action defined like this:
-
 
 ```java
 ...
@@ -382,12 +376,12 @@ For more see the JFXAnimationTemplateConfig class.
 <br>
 <br>
 
-##### Build a JFXAnimationTemplate
+#### Build a JFXAnimationTemplate
  
  After defining the actions and the config method, the last step is to build the final animation.<br>
  There are different approaches to build an animation.<br>
  
-###### Default animation objects
+##### Default animation objects
 
  Lets assume we have defined our animation for later use like this:
  
@@ -450,7 +444,7 @@ So to use multiple default animation objects via varargs we have to do the follo
  
  Now the animation for both buttons are contained in the timeline object.<br>
  
- ###### Named animation objects
+ ##### Named animation objects
  
  Lets assume we have defined our animation for later use like this:
  
@@ -517,7 +511,7 @@ We can also use multiple named animation objects via varargs for one name like:
 <br>  
 <br>  
 
-##### Build a specific animation container
+#### Build a specific animation container
 
 The default animation container for a JFXAnimation is Timeline.<br>
 It can explicitly set at build time like:
@@ -552,15 +546,15 @@ It can explicitly set at build time like:
  
 If you are using JFoenix, you don't have to use this dependency (it's already included in JFoenix).<br>
 If you use this dependency and switch later to JFoenix you can remove this dependency.<br>
-Furthermore, you have to change the package names from *de.schlegel11.jfxanimation.** to *com.jfoenix.transitions.template.**
+Furthermore, you have to change the package names from _de.schlegel11.jfxanimation.*_ to _com.jfoenix.transitions.template.*_.
  
- #### Gradle
+ ### Gradle
  
  ```groovy
  compile 'de.schlegel11:jfxanimation:1.0.0'
  ```
  
- #### Maven
+ ### Maven
  
  ```xml
 <dependency>
