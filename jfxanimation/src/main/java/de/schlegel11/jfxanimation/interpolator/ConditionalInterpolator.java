@@ -1,4 +1,4 @@
-package de.schlegel11.jfxanimation;
+package de.schlegel11.jfxanimation.interpolator;
 
 import javafx.animation.Interpolator;
 import javafx.beans.value.WritableValue;
