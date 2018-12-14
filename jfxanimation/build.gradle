@@ -16,6 +16,7 @@ javadoc {
                 setMemberLevel JavadocMemberLevel.PUBLIC
                 setAuthor true
                 links "https://docs.oracle.com/javase/8/docs/api/"
+                links 'https://docs.oracle.com/javase/8/javafx/api/'
             }
 }
 
@@ -167,8 +168,8 @@ bintray {
         websiteUrl = 'http://jfxanimation.schlegel11.de'
         issueTrackerUrl = 'https://github.com/schlegel11/JFXAnimation/issues'
         version {
-            name = '1.0.0'
-            desc = '1.0.0'
+            name = project.version
+            desc = project.version
             released = new Date()
         }
     }
