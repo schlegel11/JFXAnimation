@@ -20,7 +20,7 @@ hs_err_pid*
 .idea/
 *.iml
 *.iws
-/out/
+out/
 
 # Mac
 .DS_Store
