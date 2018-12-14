@@ -207,17 +207,8 @@ public class AnimationDemo extends Application {
         .to()
         .action(b -> b.target(Node::opacityProperty).endValue(0))
         .action(b -> b.target(Node::translateYProperty).endValue(700))
-        // just for resetting the animation.
-        .action(
-            b ->
-                b.onFinish(
-                    (node, actionEvent) -> {
-                      rotate.setAngle(0);
-                      node.setTranslateY(0);
-                      node.setOpacity(1);
-                    }))
-        // just for resetting the animation.
-        .config(b -> b.duration(Duration.seconds(2)).interpolator(Interpolator.EASE_BOTH));
+        .config(
+            b -> b.duration(Duration.seconds(2)).autoReset().interpolator(Interpolator.EASE_BOTH));
   }
 
   public static void main(String[] args) {
