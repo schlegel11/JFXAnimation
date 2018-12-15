@@ -1,13 +1,9 @@
 package de.schlegel11.jfxanimation;
 
 import de.schlegel11.jfxanimation.helper.FromToKeyValueCreator;
-import de.schlegel11.jfxanimation.helper.InterpretationMode;
+import de.schlegel11.jfxanimation.helper.InterpolatorFactory;
 import de.schlegel11.jfxanimation.helper.KeyValueWrapper;
 import de.schlegel11.jfxanimation.helper.TargetResetHelper;
-import de.schlegel11.jfxanimation.interpolator.ConditionalInterpolator;
-import de.schlegel11.jfxanimation.interpolator.DynamicInterpolator;
-import de.schlegel11.jfxanimation.interpolator.FluentTransitionInterpolator;
-import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -30,6 +26,8 @@ import java.util.stream.Collectors;
  * @since 2018-09-22
  */
 public class JFXAnimationTemplates {
+
+  private JFXAnimationTemplates() {}
 
   /**
    * The {@link Timeline} implementation which supports all {@link JFXAnimationTemplateAction} and
@@ -97,8 +95,9 @@ public class JFXAnimationTemplates {
                                         new KeyValue(
                                             writableValue,
                                             writableValue.getValue(),
-                                            createInterpolator(
-                                                writableValue, templateConfig, action)),
+                                            InterpolatorFactory
+                                                .createFromToAutoKeyFrameInterpolator(
+                                                    writableValue, templateConfig, action)),
                                         writableValue)))
                     .collect(Collectors.toList());
 
@@ -154,7 +153,9 @@ public class JFXAnimationTemplates {
       JFXAnimationTemplateConfig config, JFXAnimationTemplateAction<?, ?> action) {
     return (writableValue) ->
         new KeyValue(
-            writableValue, action.getEndValue(), createInterpolator(writableValue, config, action));
+            writableValue,
+            action.getEndValue(),
+            InterpolatorFactory.createKeyFrameInterpolator(writableValue, config, action));
   }
 
   private static Duration calcActionDuration(
@@ -163,49 +164,5 @@ public class JFXAnimationTemplates {
         // calc the percentage duration of total duration.
         .map(percent -> config.getDuration().multiply((percent / 100)))
         .orElse(key.getTime());
-  }
-
-  public static Interpolator createInterpolator(
-      WritableValue<Object> writableValue,
-      JFXAnimationTemplateConfig config,
-      JFXAnimationTemplateAction<?, ?> action) {
-    Interpolator interpolator;
-
-    if (action.getEndValueInterpretationMode() == InterpretationMode.DYNAMIC) {
-      interpolator =
-          action.hasInterpolator()
-              ? new DynamicInterpolator(action::getInterpolator, endValue -> action.getEndValue())
-              : new DynamicInterpolator(config::getInterpolator, endValue -> action.getEndValue());
-    } else if (action.getInterpolatorInterpretationMode() == InterpretationMode.DYNAMIC
-        || config.getInterpolatorInterpretationMode() == InterpretationMode.DYNAMIC) {
-      interpolator =
-          action.hasInterpolator()
-              ? new DynamicInterpolator(action::getInterpolator)
-              : new DynamicInterpolator(config::getInterpolator);
-    } else {
-      interpolator = action.hasInterpolator() ? action.getInterpolator() : config.getInterpolator();
-    }
-
-    if (action.hasFluentTransition()) {
-      interpolator =
-          new FluentTransitionInterpolator(
-              interpolator,
-              writableValue,
-              action::getFluentTransition,
-              action::addOnFinishInternal);
-    } else if (config.hasFluentTransition()) {
-      interpolator =
-          new FluentTransitionInterpolator(
-              interpolator,
-              writableValue,
-              config::getFluentTransition,
-              action::addOnFinishInternal);
-    }
-
-    if (action.hasExecuteWhen()) {
-      interpolator = new ConditionalInterpolator(interpolator, writableValue, action::isExecuted);
-    }
-
-    return interpolator;
   }
 }
