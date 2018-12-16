@@ -6,7 +6,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/64afe731cf254cf5b36f725a125f0c5e)](https://www.codacy.com/app/marcel_4/JFXAnimation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=schlegel11/JFXAnimation&amp;utm_campaign=Badge_Grade)
 
 CSS keyframe animation for JavaFX.<br>
-If you are using [JFoenix](https://github.com/jfoenixadmin/JFoenix) JFXAnimation is included *(currently not in release versions)*
+If you are using [JFoenix](https://github.com/jfoenixadmin/JFoenix) JFXAnimation is included *(currently version 1.0.0 only)*
 
 ## Requirements
 
@@ -14,9 +14,29 @@ If you are using [JFoenix](https://github.com/jfoenixadmin/JFoenix) JFXAnimation
 
 ## Documentation
 
-### Version 1.0.0 (Latest)
+### Version 2.0.0 (Latest)
 
-For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/1.0.0/api/docs/)
+For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/2.0.0/api/docs/)
+
+## Changelog
+
+<details>
+<summary>Version 2.0.0</summary>
+
++ cleanup and refactored code
++ JFXAnimationTemplateConfig
+    + add reverse method
+    + [add dynamic interpolator](#dynamic-end-values-and-interpolators)
+    + [add from/To automatic generation](#the-more-css-way)
+    + [add automatic reset](#the-more-css-way)
+    + [add fluent transition](#fluent-transition)
++ JFXAnimationTemplateAction
+    + [add dynamic end value/interpolator](#dynamic-end-values-and-interpolators)
+    + [add fluent transition](#fluent-transition)
++ JFXTemplateProcess
+    + [add time method](#action-with-absolute-duration)
+
+</details>
 
 ## Details
 
@@ -25,11 +45,12 @@ The building structure of a JFXAnimationTemplate is based on CSS keyframe animat
 
 ### Features 
 
--  Define the animation in a relative way, based on different percentage values, related to a total animation duration
+-  Define the animation in a relative way, based on different percentage values, related to a total animation duration or with a default absolute time.
 -  Multiple target observers per action
 -  Define the animation in a complete lazy evaluated way
 -  Finish events for every step/action
 -  Specific or global interpolator for all animation actions
+-  Use dynamic end values or interpolators which can be exchanged at runtime
 -  Transfer your current CSS animations easily to JavaFX
 -  Create animations simply for multiple animation objects
 
@@ -528,6 +549,99 @@ It can explicitly set at build time like:
  To use another animation container except Timeline, just write your own implementation, which handles the JFXAnimationTemplate instance.<br>
  For orientation the implementation of buildTimeline in JFXAnimationTemplates class can be used and copied.
  
+ ### Since version 2.0.0
+ 
+ ### Action with absolute duration
+ 
+ It's now also possible to use an action duration like the default behaviour with JavaFX KeyValues:
+ 
+ ```java
+ ...
+      JFXAnimationTemplate.create()
+          .time(Duration.seconds(3))
+ ...
+ ```
+ 
+ You can combine time(...) with percent(...) definitions.
+ 
+ ### Dynamic end values and interpolators
+ 
+ The default behavior of the timeline in JavaFX usually does not allow the endvalue and/or interpolator to be changed during a running animation.<br>
+ With a dynamic endvalue/interpolator this is now possible.<br>
+ To use e.g. a dynamic end value you could define it like:
+ 
+ ```java
+ ...
+    JFXAnimationTemplate.create()
+        .percent(10)
+        .action(
+            b -> b.target(Node::rotateProperty).endValue(InterpretationMode.DYNAMIC, node -> 3));
+ ...
+ ```
+ 
+ Now the end value function is called every interpolation step of the action.<br>
+ You could define your own condtions or other methods in it. 
+ 
+ The same is valid for the interpolator e.g.:
+ 
+ ```java
+ ...
+    JFXAnimationTemplate.create()
+        .percent(10)
+        .action(
+            b ->
+                b.target(Node::rotateProperty)
+                    .interpolator(InterpretationMode.DYNAMIC, node -> Interpolator.LINEAR));
+ ...
+ ```
+ 
+ ### The more CSS way
+ 
+ It is now possible to adjust the animation more according to a CSS behavior.<br>
+ For that purpose the new functions fromToAutoGen and autoReset exist.<br>
+ <br>
+ The fromToAutoGen function generates automatically for every action target a related start(from) or end(to) action if it doesen't exist.<br>
+ The generated actions uses as end values the last target values before the animations is build.<br>
+ <br>
+ The autoReset function reset all targets to the values before an animation was built.<br>
+ The behavior is similar to the animation-fill-mode: backwards in CSS.<br>
+ 
+ The functions can be used like:
+ 
+ ```java
+ ...
+        JFXAnimationTemplate.create()
+            .percent(20)
+            .action(b -> b.target(rectangle.translateXProperty()).endValue(150))
+            .config(b -> b.duration(Duration.seconds(2))".autoReset()" or/and ".fromToAutoGen()")
+            .build();
+ ...
+ ```
+ 
+  ![Alt text](https://raw.githubusercontent.com/schlegel11/JFXAnimation/assets/v2_fromTo_reset.gif "FromTo Reset")
+ 
+ ### Fluent transition
+ 
+ The fluent transition function is useful in some situations and can be seen more or less as a helper function.<br>
+ It can be defined on the whole animation or specific on an action.<br>
+ Useful if an action is interrupted or the animation gets clipped.<br> 
+ 
+ In this example an action is ignored and the animation would therefore look choppy:
+ 
+ ```java
+ ...
+        JFXAnimationTemplate.create()
+            .percent(20)
+            .action(b -> b.target(rectangle.translateXProperty()).endValue(150))
+            .percent(60)
+            .action(b -> b.target(rectangle.translateXProperty()).endValue(400).ignore())
+            .config(b -> b.duration(Duration.seconds(2)).fromToAutoGen().fluentTransition())
+            .build();
+ ...
+ ```
+
+  ![Alt text](https://raw.githubusercontent.com/schlegel11/JFXAnimation/assets/v2_fluentTransition.gif "Fluent Transition")
+ 
  ## Demo
  
  A full blown example of animations can be found in the demo project/package.<br>
@@ -551,7 +665,7 @@ Furthermore, you have to change the package names from _de.schlegel11.jfxanimati
  ### Gradle
  
  ```groovy
- compile 'de.schlegel11:jfxanimation:1.0.0'
+ compile 'de.schlegel11:jfxanimation:2.0.0'
  ```
  
  ### Maven
@@ -560,6 +674,6 @@ Furthermore, you have to change the package names from _de.schlegel11.jfxanimati
 <dependency>
   <groupId>de.schlegel11</groupId>
   <artifactId>jfxanimation</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
 </dependency>
  ```
