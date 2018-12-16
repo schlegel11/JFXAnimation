@@ -566,8 +566,8 @@ It can explicitly set at build time like:
  
  ### Dynamic end values and interpolators
  
- The default behavior of the timeline in JavaFX usually does not allow the endvalue and/or interpolator to be changed during a running animation.<br>
- With a dynamic endvalue/interpolator this is now possible.<br>
+ The default behavior of the timeline in JavaFX usually does not allow the end value and/or interpolator to be changed during a running animation.<br>
+ With a dynamic end value/interpolator this is now possible.<br>
  To use e.g. a dynamic end value you could define it like:
  
  ```java
@@ -580,7 +580,7 @@ It can explicitly set at build time like:
  ```
  
  Now the end value function is called every interpolation step of the action.<br>
- You could define your own condtions or other methods in it. 
+ You could define your own conditions or other methods in it. 
  
  The same is valid for the interpolator e.g.:
  
@@ -600,7 +600,7 @@ It can explicitly set at build time like:
  It is now possible to adjust the animation more according to a CSS behavior.<br>
  For that purpose the new functions fromToAutoGen and autoReset exist.<br>
  <br>
- The fromToAutoGen function generates automatically for every action target a related start(from) or end(to) action if it doesen't exist.<br>
+ The fromToAutoGen function generates automatically for every action target a related start(from) or end(to) action if it doesn't exist.<br>
  The generated actions uses as end values the last target values before the animations is build.<br>
  <br>
  The autoReset function reset all targets to the values before an animation was built.<br>
