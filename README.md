@@ -553,7 +553,7 @@ For orientation the implementation of buildTimeline in JFXAnimationTemplates cla
 
 ### Since version 2.0.0
 
-### Action with absolute duration
+#### Action with absolute duration
 
 It's now also possible to use an action duration like the default behaviour with JavaFX KeyValues:
 
@@ -566,7 +566,7 @@ It's now also possible to use an action duration like the default behaviour with
 
 You can combine time(...) with percent(...) definitions.
 
-### Dynamic end values and interpolators
+#### Dynamic end values and interpolators
 
 The default behavior of the timeline in JavaFX usually does not allow the end value and/or interpolator to be changed during a running animation.<br>
 With a dynamic end value/interpolator this is now possible.<br>
@@ -597,7 +597,7 @@ The same is valid for the interpolator e.g.:
  ...
 ```
 
-### The more CSS way
+#### The more CSS way
 
 It is now possible to adjust the animation more according to a CSS behavior.<br>
 For that purpose the new functions fromToAutoGen and autoReset exist.<br><br>
@@ -620,7 +620,7 @@ The functions can be used like:
 
 ![Alt text](https://raw.githubusercontent.com/schlegel11/JFXAnimation/assets/v2_fromTo_reset.gif "FromTo Reset")
 
-### Fluent transition
+#### Fluent transition
 
 The fluent transition function is useful in some situations and can be seen more or less as a helper function.<br>
 It can be defined on the whole animation or specific on an action.<br>
