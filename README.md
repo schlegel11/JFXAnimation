@@ -10,7 +10,7 @@ If you are using [JFoenix](https://github.com/jfoenixadmin/JFoenix) JFXAnimation
 
 ## Requirements
 
--  JDK 8 and up
+  - JDK 8 and up
 
 ## Documentation
 
@@ -23,18 +23,19 @@ For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/2.
 <details>
 <summary>Version 2.0.0</summary>
 
-+ cleanup and refactored code
-+ JFXAnimationTemplateConfig
-    + add reverse method
-    + [add dynamic interpolator](#dynamic-end-values-and-interpolators)
-    + [add from/To automatic generation](#the-more-css-way)
-    + [add automatic reset](#the-more-css-way)
-    + [add fluent transition](#fluent-transition)
-+ JFXAnimationTemplateAction
-    + [add dynamic end value/interpolator](#dynamic-end-values-and-interpolators)
-    + [add fluent transition](#fluent-transition)
-+ JFXTemplateProcess
-    + [add time method](#action-with-absolute-duration)
+- cleanup and refactored code
+
+- JFXAnimationTemplateConfig
+  - add reverse method
+  - [add dynamic interpolator](#dynamic-end-values-and-interpolators)
+  - [add from/To automatic generation](#the-more-css-way)
+  - [add automatic reset](#the-more-css-way)
+  - [add fluent transition](#fluent-transition)
+- JFXAnimationTemplateAction
+  - [add dynamic end value/interpolator](#dynamic-end-values-and-interpolators)
+  - [add fluent transition](#fluent-transition)
+- JFXTemplateProcess
+  - [add time method](#action-with-absolute-duration)
 
 </details>
 
@@ -45,14 +46,14 @@ The building structure of a JFXAnimationTemplate is based on CSS keyframe animat
 
 ### Features 
 
--  Define the animation in a relative way, based on different percentage values, related to a total animation duration or with a default absolute time.
--  Multiple target observers per action
--  Define the animation in a complete lazy evaluated way
--  Finish events for every step/action
--  Specific or global interpolator for all animation actions
--  Use dynamic end values or interpolators which can be exchanged at runtime
--  Transfer your current CSS animations easily to JavaFX
--  Create animations simply for multiple animation objects
+  - Define the animation in a relative way, based on different percentage values, related to a total animation duration or with a default absolute time.
+  - Multiple target observers per action
+  - Define the animation in a complete lazy evaluated way
+  - Finish events for every step/action
+  - Specific or global interpolator for all animation actions
+  - Use dynamic end values or interpolators which can be exchanged at runtime
+  - Transfer your current CSS animations easily to JavaFX
+  - Create animations simply for multiple animation objects
 
 ### Code comparison
 
