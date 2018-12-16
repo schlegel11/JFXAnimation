@@ -30,8 +30,7 @@ For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/2.
   
 - JFXAnimationTemplateAction
   -   [add dynamic end value/interpolator](#dynamic-end-values-and-interpolators)
-  -   [add fluent transition](#fluent-transition)
-  
+  -   [add fluent transition](#fluent-transition)  
 - JFXTemplateProcess
   -   [add time method](#action-with-absolute-duration)
   
@@ -39,7 +38,8 @@ For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/2.
 
 ## Details
 
-The JFXAnimation project provides the JFXAnimationTemplate classes, which acts as a builder for JavaFX animations. The building structure of a JFXAnimationTemplate is based on CSS keyframe animations, which have some advantages:
+The JFXAnimation project provides the JFXAnimationTemplate classes, which acts as a builder for JavaFX animations.
+The building structure of a JFXAnimationTemplate is based on CSS keyframe animations, which have some advantages:
 
 ### Features
 
