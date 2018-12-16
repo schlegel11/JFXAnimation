@@ -23,15 +23,19 @@ For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/2.
 
 - JFXAnimationTemplateConfig
   -   add reverse method
-  -   <a href="#dynamic-end-values-and-interpolators">add dynamic interpolator</a>
-  -   <a href="#the-more-css-way">add from/To automatic generation</a>
-  -   <a href="#the-more-css-way">add automatic reset</a>
-  -   <a href="#fluent-transition">add fluent transition</a>
+  -   [add dynamic interpolator](#dynamic-end-values-and-interpolators)
+  -   [add from/To automatic generation](#the-more-css-way)
+  -   [add automatic reset](#the-more-css-way)
+  -   [add fluent transition](#fluent-transition)
+  
 - JFXAnimationTemplateAction
-  -   <a href="#dynamic-end-values-and-interpolators">add dynamic end value/interpolator</a>
-  -   <a href="#fluent-transition">add fluent transition</a>
+  -   [add dynamic end value/interpolator](#dynamic-end-values-and-interpolators)
+  -   [add fluent transition](#fluent-transition)
+  
 - JFXTemplateProcess
-  -   <a href="#action-with-absolute-duration">add time method</a></details>
+  -   [add time method](#action-with-absolute-duration)
+  
+</details>
 
 ## Details
 
@@ -52,98 +56,142 @@ The JFXAnimation project provides the JFXAnimationTemplate classes, which acts a
 
 <br>
 
-| CSS [TADA](https://github.com/daneden/animate.css/blob/master/source/attention_seekers/tada.css) animation from [animate.css](https://daneden.github.io/animate.css/)
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-|
+<table>
+<tr>
+<th colspan="3">
 
-[Implementation](https://github.com/fxexperience/code/blob/master/FXExperienceControls/src/com/fxexperience/javafx/animation/TadaTransition.java) with [Keyframe](https://docs.oracle.com/javafx/2/api/javafx/animation/KeyFrame.html) objects | Implementation with [JFXAnimationTemplate](https://schlegel11.github.io/JFXAnimation/releases/1.0.0/api/docs/de/schlegel11/jfxanimation/JFXAnimationTemplate.html) | [Implementation](https://github.com/daneden/animate.css/blob/master/source/attention_seekers/tada.css) with pure CSS
+CSS [TADA](https://github.com/daneden/animate.css/blob/master/source/attention_seekers/tada.css) animation from [animate.css](https://daneden.github.io/animate.css/)
+</th>
+</tr>
+<tr>
+<td align="left">
 
-````
+[Implementation](https://github.com/fxexperience/code/blob/master/FXExperienceControls/src/com/fxexperience/javafx/animation/TadaTransition.java) with [Keyframe](https://docs.oracle.com/javafx/2/api/javafx/animation/KeyFrame.html) objects
+</td>
+<td align="left">
+
+Implementation with [JFXAnimationTemplate](https://schlegel11.github.io/JFXAnimation/releases/1.0.0/api/docs/de/schlegel11/jfxanimation/JFXAnimationTemplate.html)
+</td>
+<td align="left">
+
+[Implementation](https://github.com/daneden/animate.css/blob/master/source/attention_seekers/tada.css) with pure CSS
+</td>
+</tr>
+<tr>
+<td valign="top" align="left">
+<pre lang="java">
 TimelineBuilder.create()
                 .keyFrames(
-                    new KeyFrame(Duration.millis(0),
+                    new KeyFrame(Duration.millis(0),    
                         new KeyValue(node.scaleXProperty(), 1, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 1, WEB_EASE),
                         new KeyValue(node.rotateProperty(), 0, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(100),
+                    new KeyFrame(Duration.millis(100),    
                         new KeyValue(node.scaleXProperty(), 0.9, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 0.9, WEB_EASE),
                         new KeyValue(node.rotateProperty(), -3, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(200),
+                    new KeyFrame(Duration.millis(200),    
                         new KeyValue(node.scaleXProperty(), 0.9, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 0.9, WEB_EASE),
                         new KeyValue(node.rotateProperty(), -3, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(300),
+                    new KeyFrame(Duration.millis(300),    
                         new KeyValue(node.scaleXProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.rotateProperty(), 3, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(400),
+                    new KeyFrame(Duration.millis(400),    
                         new KeyValue(node.scaleXProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.rotateProperty(), -3, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(500),
+                    new KeyFrame(Duration.millis(500),    
                         new KeyValue(node.scaleXProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.rotateProperty(), 3, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(600),
+                    new KeyFrame(Duration.millis(600),    
                         new KeyValue(node.scaleXProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.rotateProperty(), -3, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(700),
+                    new KeyFrame(Duration.millis(700),    
                         new KeyValue(node.scaleXProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.rotateProperty(), 3, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(800),
+                    new KeyFrame(Duration.millis(800),    
                         new KeyValue(node.scaleXProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.rotateProperty(), -3, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(900),
+                    new KeyFrame(Duration.millis(900),    
                         new KeyValue(node.scaleXProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 1.1, WEB_EASE),
                         new KeyValue(node.rotateProperty(), 3, WEB_EASE)
                     ),
-                    new KeyFrame(Duration.millis(1000),
+                    new KeyFrame(Duration.millis(1000),    
                         new KeyValue(node.scaleXProperty(), 1, WEB_EASE),
                         new KeyValue(node.scaleYProperty(), 1, WEB_EASE),
                         new KeyValue(node.rotateProperty(), 0, WEB_EASE)
                     )
 )
-``` |
-````
-
-```
-     JFXAnimationTemplate.create()
-         .from()
-         .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(1))
-         .percent(10)
-         .percent(20)
-         .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(0.9))
-         .action(b -> b.target(Node::rotateProperty).endValue(-3))
-         .percent(30, 50, 70, 90)
-         .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(1.1))
-         .action(b -> b.target(Node::rotateProperty).endValue(3))
-         .percent(40, 60, 80)
-         .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(1.1))
-         .action(b -> b.target(Node::rotateProperty).endValue(-3))
-         .to()
-         .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(1))
-         .action(b -> b.target(Node::rotateProperty).endValue(0))
-         .config(b -> b.duration(Duration.seconds(1)).interpolator(WEB_EASE));
-```
-
-`|` @keyframes tada { from { transform: scale3d(1, 1, 1); } 10%, 20% { transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg); } 30%, 50%, 70%, 90% { transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg); } 40%, 60%, 80% { transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg); } to { transform: scale3d(1, 1, 1); } }
-
-````
-
+</pre>
+</td>
+<td valign="top" align="left">
+<pre lang="java">
+         JFXAnimationTemplate.create()
+             .from()
+             .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(1))
+             .percent(10)
+             .percent(20)
+             .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(0.9))
+             .action(b -> b.target(Node::rotateProperty).endValue(-3))
+             .percent(30, 50, 70, 90)
+             .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(1.1))
+             .action(b -> b.target(Node::rotateProperty).endValue(3))
+             .percent(40, 60, 80)
+             .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(1.1))
+             .action(b -> b.target(Node::rotateProperty).endValue(-3))
+             .to()
+             .action(b -> b.target(Node::scaleXProperty, Node::scaleYProperty).endValue(1))
+             .action(b -> b.target(Node::rotateProperty).endValue(0))
+             .config(b -> b.duration(Duration.seconds(1)).interpolator(WEB_EASE));
+</pre>
+</td>
+<td valign="top" align="left">
+<pre lang="css">
+     @keyframes tada {
+       from {
+         transform: scale3d(1, 1, 1);
+       }
+       10%,
+       20% {
+         transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+       }
+       30%,
+       50%,
+       70%,
+       90% {
+         transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+       }
+       40%,
+       60%,
+       80% {
+         transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+       }
+       to {
+         transform: scale3d(1, 1, 1);
+       }
+     }
+</pre>
+</td>
+</tr>
+</table>
+  
+  
 <br>
 
 As you can see, the default approach with KeyFrame objects has more lines of code.<br>
@@ -156,15 +204,14 @@ Moreover, you can specify more target observers for one specific end value.
 #### Create a JFXAnimationTemplate
 
 The created type of JFXTemplate is use case specific. Mostly the JFXTemplateBuilder
-
-<t> is used as final type, where T is the default animation object type.<br>
-A JFXTemplate can be created like that:</t>
+is used as final type, where T is the default animation object type.<br>
+A JFXTemplate can be created like that:
 
 ```java
 ...
       JFXAnimationTemplate.create()
 ...
-````
+```
 
 in this case the default animation object type T is a Node type.<br>
 It's also possible to set a own default animation object type:
