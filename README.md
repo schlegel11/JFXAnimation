@@ -38,7 +38,7 @@ For details see: [JavaDoc](https://schlegel11.github.io/JFXAnimation/releases/2.
 
 ## Details
 
-The JFXAnimation project provides the JFXAnimationTemplate classes, which acts as a builder for JavaFX animations.
+The JFXAnimation project provides the JFXAnimationTemplate classes, which acts as a builder for JavaFX animations.<br>
 The building structure of a JFXAnimationTemplate is based on CSS keyframe animations, which have some advantages:
 
 ### Features
