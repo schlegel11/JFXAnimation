@@ -89,16 +89,7 @@ public class JFXAnimationTemplates {
                     .stream()
                     .flatMap(
                         action ->
-                            action.mapTo(
-                                writableValue ->
-                                    new KeyValueWrapper<>(
-                                        new KeyValue(
-                                            writableValue,
-                                            writableValue.getValue(),
-                                            InterpolatorFactory
-                                                .createFromToAutoKeyFrameInterpolator(
-                                                    writableValue, templateConfig, action)),
-                                        writableValue)))
+                            action.mapTo(createKeyValueWrapperFunction(templateConfig, action)))
                     .collect(Collectors.toList());
 
             if (templateConfig.isFromToAutoGen()) {
@@ -151,11 +142,24 @@ public class JFXAnimationTemplates {
 
   private static Function<WritableValue<Object>, KeyValue> createKeyValueFunction(
       JFXAnimationTemplateConfig config, JFXAnimationTemplateAction<?, ?> action) {
-    return (writableValue) ->
+    return writableValue ->
         new KeyValue(
             writableValue,
             action.getEndValue(),
             InterpolatorFactory.createKeyFrameInterpolator(writableValue, config, action));
+  }
+
+  private static Function<WritableValue<Object>, KeyValueWrapper<KeyValue>>
+      createKeyValueWrapperFunction(
+          JFXAnimationTemplateConfig config, JFXAnimationTemplateAction<?, ?> action) {
+    return writableValue ->
+        new KeyValueWrapper<>(
+            new KeyValue(
+                writableValue,
+                writableValue.getValue(),
+                InterpolatorFactory.createFromToAutoKeyFrameInterpolator(
+                    writableValue, config, action)),
+            writableValue);
   }
 
   private static Duration calcActionDuration(
